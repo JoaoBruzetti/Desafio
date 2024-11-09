@@ -1,0 +1,6 @@
+/backend/.env
+/backend/vendor
+/backend/storage/*.key
+/backend/.phpunit.result.cache
+/backend/.phpuni.cache
+/backend/composer.lock

@@ -17,9 +17,9 @@ return new class extends Migration
         });
 
         StatusTarefa::insert([
-            ['id' => 1, 'nm' => 'Pendente', 'cor' => '#FF0000'],
-            ['id' => 2, 'nm' => 'Em Andamento', 'cor' => '#FFFF00'],
-            ['id' => 3, 'nm' => 'Concluída', 'cor' => '#00FF00'],
+            ['id' => 1, 'nm' => 'Pendente', 'nm_cor' => '#FF0000'],
+            ['id' => 2, 'nm' => 'Em Andamento', 'nm_cor' => '#FFFF00'],
+            ['id' => 3, 'nm' => 'Concluída', 'nm_cor' => '#00FF00'],
         ]);
 
         Schema::create('tarefas', function (Blueprint $table) {

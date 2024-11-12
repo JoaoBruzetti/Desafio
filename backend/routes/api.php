@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TarefaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+use App\Http\Controllers\AuthController;
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('/tarefas', [TarefaController::class, 'store']);
+    Route::get('/tarefas/{id}', [TarefaController::class, 'show']);
+    Route::put('/tarefas/{id}', [TarefaController::class, 'update']);
+    Route::delete('/tarefas/{id}', [TarefaController::class, 'destroy']);
 });

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum StatusTarefaEnum: string
+enum StatusTarefaEnum: int
 {
     case PENDENTE = 1;
     case EM_ANDAMENTO = 2;

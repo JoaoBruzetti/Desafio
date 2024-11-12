@@ -1,12 +1,14 @@
 # Desafio
 
+**Tempo gasto: 6 horas**
+
 1. Rodar comando para subir containers
 
     **`docker compose up -d`**
 
-2. Entrar na pasta backend
+2. Entrar no container do laravel
 
-    **`cd /backend`**
+    **`docker compose exec php bash`**
 
 3. Gerar .env
 
@@ -16,14 +18,14 @@
 
     **`composer install`**
 
-5. Gerar chave 
+5. Gerar chave
 
     **`php artisan key:generate`**
 
-5. Inicial laravel
+6. Gerar jwt
 
-    **`php artisan serve`**
+    **`php artisan jwt:secret`**
 
-6. Rodar migrations
+7. Rodar migrations
 
     **`php artisan migrate`**

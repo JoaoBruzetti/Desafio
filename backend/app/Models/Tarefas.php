@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusTarefa extends Model
+class Tarefa extends Model
 {
     use HasFactory;
 
-    protected $table = 'statustarefas';
+    protected $table = 'tarefas';
 
     protected $fillable = [
         'nm',
-        'nm_cor',
+        'nm_descricao',
     ];
 }

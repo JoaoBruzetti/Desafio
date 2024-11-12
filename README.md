@@ -2,6 +2,8 @@
 
 **Tempo gasto: 6 horas**
 
+Recomendavel fazer deploy utilizando o codespaces do github
+
 1. Rodar comando para subir containers
 
     **`docker compose up -d`**

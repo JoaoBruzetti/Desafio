@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('statustarefas', function (Blueprint $table) {
             $table->id();
             $table->text('nm');
-            $table->text('cor');
+            $table->text('nm_cor');
         });
 
         StatusTarefa::insert([
@@ -25,7 +25,7 @@ return new class extends Migration
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
             $table->text('nm');
-            $table->text('descricao');
+            $table->text('nm_descricao');
             $table->foreignId('statustarefa_id')
                   ->constrained('statustarefas')
                   ->default(StatusTarefaEnum::PENDENTE->value);

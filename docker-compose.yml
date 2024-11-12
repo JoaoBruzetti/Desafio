@@ -1,33 +1,31 @@
-version: "3.7"
-
 services:
-    mysql:
-        image: mysql:8
-        container_name: mysql-container
-        environment:
-            MYSQL_ROOT_PASSWORD: 123456
-            MYSQL_DATABASE: laravel
-        ports:
-            - "3306:3306"
-        volumes:
-            - mysql-data:/var/lib/mysql
-        networks:
-            - app-network
+  mysql:
+    image: mysql:8
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: laravel
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
 
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin # Corrigindo a indentação aqui
-        environment:
-            PMA_HOST: mysql
-            MYSQL_ROOT_PASSWORD: 123456
-        ports:
-            - "8080:80"
-        networks:
-            - app-network # Corrigido o erro de digitação em "app-networ"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
 
 volumes:
-    mysql-data:
-        driver: local
+  mysql-data:
+    driver: local
 
 networks:
-    app-network:
-        driver: bridge
+  app-network:
+    driver: bridge

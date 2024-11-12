@@ -1,0 +1,15 @@
+{
+    "name": "Desafio",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "postCreateCommand": "composer install",
+    "extensions": [
+        "felixfbecker.php-debug",
+        "neilbrayfield.php-docblocker",
+        "bmewburn.vscode-intelephense-client"
+    ]
+}

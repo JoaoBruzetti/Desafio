@@ -11,6 +11,6 @@ class StatusTarefa extends Model
 
     protected $fillable = [
         'nm',
-        'cor',
+        'nm_cor',
     ];
 }

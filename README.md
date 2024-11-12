@@ -8,10 +8,22 @@
 
     **`cd /backend`**
 
-3. Inicial laravel
+3. Gerar .env
+
+    **`cp .env.example .env`**
+
+4. Composer install
+
+    **`composer install`**
+
+5. Gerar chave 
+
+    **`php artisan key:generate`**
+
+5. Inicial laravel
 
     **`php artisan serve`**
 
-4. Rodar migrations
+6. Rodar migrations
 
     **`php artisan migrate`**

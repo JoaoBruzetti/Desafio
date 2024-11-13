@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
         });
 
-        User::created([
+        User::insert([
             'email' => 'user@email.com',
             'password' =>  Hash::make('123456')
             ]

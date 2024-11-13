@@ -27,3 +27,12 @@ Recomendavel fazer deploy utilizando o codespaces do github
 6. Rodar migrations
 
     **`php artisan migrate`**
+
+7. Sair do container e entrar no projeto frontend
+
+    **`exit`**
+    **`cd frontend/`**
+
+8. Rodar frontend
+
+    **`npm run dev`**

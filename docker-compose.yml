@@ -44,7 +44,7 @@ services:
         networks:
             - app-network
         environment:
-            - VITE_API_URL=http://php:80 # Configurar para apontar para o container PHP, se necessário
+            - VITE_API_URL=http://php:80
 
 volumes:
     mysql-data:

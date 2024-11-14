@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import Modal from './+modal.svelte';
+    import Modal from './modal.svelte';
 
     const apiUrl = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem('jwt_token');

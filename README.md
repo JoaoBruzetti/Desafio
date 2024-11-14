@@ -16,33 +16,41 @@ Recomendavel fazer deploy utilizando o codespaces do github
 
     **`cp .env.example .env`**
 
-4. Gerar chave
+4. Rodar composer install
+
+    **`composer install`**
+
+5. Gerar chave
 
     **`php artisan key:generate`**
 
-5. Gerar jwt
+6. Gerar jwt
 
     **`php artisan jwt:secret`**
 
-6. Rodar migrations
+7. Rodar migrations
 
     **`php artisan migrate`**
 
-7. Sair do container e entrar no projeto frontend
+8. Sair do container e entrar no projeto frontend
 
     **`exit`**
     **`cd frontend/`**
 
-8. Criar arquivo .env
+9. Criar arquivo .env
 
     **`touch .env`**
 
-9. Deixar porta do container php como publica (caso esteja no codespaces acessar aba de portas -> visibilidade da porta -> public) copiar url da porta e adicionar variavel no .env
+10. Deixar porta do container php (porta 80) como publica (caso esteja no codespaces acessar aba de portas -> botão direito na porta 80 -> visibilidade da porta -> public) copiar url da porta e adicionar variavel no .env
 
     **`VITE_API_URL=URL_CONTAINER_PHP`**
 
-10. Rodar frontend
+11. Rodar npm install
+
+    **`npm install`**
+
+12. Rodar frontend
 
     **`npm run dev`**
 
-11. Abrir url gerada no navegador
+13. Abrir url gerada no navegador

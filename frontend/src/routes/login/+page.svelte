@@ -1,10 +1,11 @@
 <script>
     let email = '';
     let password = '';
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     async function login() {
       try {
-        const response = await fetch(`https://ubiquitous-cod-rpqr77gqqw9254j6-80.app.github.dev/api/login`, {
+        const response = await fetch(apiUrl + `api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })

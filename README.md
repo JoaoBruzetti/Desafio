@@ -1,6 +1,6 @@
 # Desafio
 
-**Tempo gasto: 6 horas**
+**Tempo gasto: 10 horas**
 
 Recomendavel fazer deploy utilizando o codespaces do github
 
@@ -33,6 +33,14 @@ Recomendavel fazer deploy utilizando o codespaces do github
     **`exit`**
     **`cd frontend/`**
 
-8. Rodar frontend
+8. Criar arquivo .env
+
+    **`touch .env`**
+
+9. Deixar porta do container php como publica (caso esteja no codespaces acessar aba de portas -> visibilidade da porta -> public) copiar url da porta e adicionar variavel no .env
+
+    **`VITE_API_URL=URL_CONTAINER_PHP`**
+
+10. Rodar frontend
 
     **`npm run dev`**

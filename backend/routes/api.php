@@ -22,8 +22,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api'
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('/tarefas', [TarefaController::class, 'store']);
-    Route::get('/tarefas/{id}', [TarefaController::class, 'show']);
+    Route::get('/tarefas', [TarefaController::class, 'show']);
+    Route::post('/tarefas', [TarefaController::class, 'create']);
     Route::put('/tarefas/{id}', [TarefaController::class, 'update']);
     Route::delete('/tarefas/{id}', [TarefaController::class, 'destroy']);
 });

@@ -25,10 +25,13 @@ class TarefaController extends Controller
         return response()->json($tarefa, 201);
     }
 
-    public function show($id)
+    public function show()
     {
-        $tarefa = Tarefa::findOrFail($id);
-        return response()->json($tarefa);
+       // Busca todos os registros da tabela tarefas
+       $tarefas = Tarefa::all();
+
+       // Retorna as tarefas como JSON
+       return response()->json($tarefas);
     }
 
     public function update(Request $request, $id)

@@ -35,6 +35,7 @@ Recomendavel fazer deploy utilizando o codespaces do github
 8. Sair do container e entrar no projeto frontend
 
     **`exit`**
+
     **`cd frontend/`**
 
 9. Criar arquivo .env

@@ -53,7 +53,7 @@ class TarefaRepository
                 'tarefas.nm',
                 'tarefas.nm_descricao',
                 'tarefas.statustarefa_id',
-                DB::raw("CONVERT_TZ(dt_criacao, '+00:00', '-03:00') as dt"),
+                DB::raw("DATE_FORMAT(CONVERT_TZ(dt_criacao, '+00:00', '-03:00'), '%d/%m/%Y %H:%i') as dt"),
                 'statustarefas.nm_cor',
                 'statustarefas.nm as nm_status'
                 )

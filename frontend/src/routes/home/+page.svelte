@@ -136,59 +136,130 @@
 
     onMount(() => buscarTarefas(paginaAtual));
 </script>
+<style>
+    .status-badge {
+        padding: 0.5em 1em;
+        color: #fff;
+        border-radius: 4px;
+        font-size: 0.875em;
+        text-align: center;
+    }
+    .small-btn {
+        font-size: 0.875rem;
+        padding: 0.25em 0.75em;
+    }
+  </style>
 
-<h1>Lista de Tarefas</h1>
-<button on:click={abrirModalCriacao}>Criar Nova Tarefa</button>
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container" style="max-width: 800px;">
+      <h2 class="text-center mb-4 fw-bold">Lista de Tarefas</h2>
 
-<div>
-    <label for="ordenarPor">Ordenar por:</label>
-    <select id="ordenarPor" bind:value={ordenarPor} on:change={() => atualizarOrdenacao(ordenarPor)}>
-        <option value="nm">Nome</option>
-        <option value="dt_criacao">Data</option>
-        <option value="statustarefa_id">Status</option>
-    </select>
-    <button on:click={alternarOrdem}>
-        {ordem === 'asc' ? 'Ordem Ascendente' : 'Ordem Descendente'}
-    </button>
+      <div class="d-flex justify-content-between mb-3">
+        <!-- <button class="btn btn-primary" on:click={abrirModalCriacao}>Criar Nova Tarefa</button> -->
+        <button class="btn btn-primary small-btn" on:click={abrirModalCriacao}>Criar Nova Tarefa</button>
+
+        <div class="d-flex align-items-center">
+          <label for="ordenarPor" class="form-label me-2">Ordenar por:</label>
+          <select id="ordenarPor" class="form-select" bind:value={ordenarPor} on:change={() => atualizarOrdenacao(ordenarPor)}>
+            <option value="nm">Nome</option>
+            <option value="dt_criacao">Data</option>
+            <option value="statustarefa_id">Status</option>
+          </select>
+          <button class="btn btn-secondary ms-2" on:click={alternarOrdem}>
+            {ordem === 'asc' ? 'Crescente' : 'Decrescente'}
+          </button>
+        </div>
+      </div>
+
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Título</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each tarefas as tarefa}
+            <tr>
+              <td>{tarefa.nm}</td>
+              <td>{tarefa.dt}</td>
+              <td>
+                <span class="status-badge bg-{tarefa.nm_cor}">
+                  {tarefa.nm_status}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-outline-primary btn-sm" on:click={() => abrirModalEdicao(tarefa)}>Editar</button>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+
+      <!-- Paginação -->
+    <div class="d-flex justify-content-center align-items-center mt-3">
+  <button class="btn btn-secondary small-btn me-2" on:click={() => irParaPagina(paginaAtual - 1)} disabled={paginaAtual === 1}>
+    Anterior
+  </button>
+  <span>Página {paginaAtual} de {totalDePaginas}</span>
+  <button class="btn btn-secondary small-btn ms-2" on:click={() => irParaPagina(paginaAtual + 1)} disabled={paginaAtual === totalDePaginas}>
+    Próxima
+  </button>
 </div>
+    </div>
+  </div>
 
-<ul>
-    {#each tarefas as tarefa}
-        <li>
-            {tarefa.nm} - {tarefa.dt} - {tarefa.nm_status} -
-            <button on:click={() => abrirModalEdicao(tarefa)}>Editar</button>
-        </li>
-    {/each}
-</ul>
+  {#if mostrarModalEdicao}
+  <Modal on:close={fecharModalEdicao}>
+    <h2 class="text-center fw-bold">Editar Tarefa</h2>
 
-{#if mostrarModalEdicao}
-    <Modal on:close={fecharModalEdicao}>
-      <h2>Editar Tarefa</h2>
-      <label> {tarefaAtual.id} </label>
-      <input type="text" bind:value={tarefaAtual.nm} placeholder="Nome" />
-      <input type="text" bind:value={tarefaAtual.nm_descricao} placeholder="Descrição" />
-      <select bind:value={tarefaAtual.statustarefa_id}>
+    <div class="mb-3 d-flex align-items-center">
+      <label class="form-label me-2">ID:</label>
+      <input type="text" class="form-control w-75" bind:value={tarefaAtual.id} disabled />
+    </div>
+
+    <div class="mb-3 d-flex align-items-center">
+      <label class="form-label me-2">Título:</label>
+      <input type="text" class="form-control w-75" bind:value={tarefaAtual.nm} placeholder="Nome" />
+    </div>
+
+    <div class="mb-3 d-flex align-items-center">
+      <label class="form-label me-2">Descrição:</label>
+      <input type="text" class="form-control w-75" bind:value={tarefaAtual.nm_descricao} placeholder="Descrição" />
+    </div>
+
+    <div class="mb-3 d-flex align-items-center">
+      <label class="form-label me-2">Status:</label>
+      <select class="form-select w-75" bind:value={tarefaAtual.statustarefa_id}>
         <option value="1">Pendente</option>
         <option value="2">Em andamento</option>
         <option value="3">Concluída</option>
       </select>
-      <button on:click={atualizarTarefa}>Salvar</button>
-      <button on:click={excluirTarefa}>Excluir</button>
-    </Modal>
-  {/if}
+    </div>
 
-  {#if mostrarModalCriacao}
-    <Modal on:close={fecharModalCriacao}>
-      <h2>Criar Nova Tarefa</h2>
-      <input type="text" bind:value={novaTarefa.nm} placeholder="Nome" />
-      <input type="text" bind:value={novaTarefa.nm_descricao} placeholder="Descrição" />
-      <button on:click={criarTarefa}>Criar</button>
-    </Modal>
-  {/if}
+    <!-- Centralizando os botões -->
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary small-btn w-50 mb-2" on:click={atualizarTarefa}>Salvar</button>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-danger small-btn w-50" on:click={excluirTarefa}>Excluir</button>
+    </div>
+  </Modal>
 
+{/if}
 
-<div>
-    <button on:click={() => irParaPagina(paginaAtual - 1)} disabled={paginaAtual === 1}>Anterior</button>
-    <span>Página {paginaAtual} de {totalDePaginas}</span>
-    <button on:click={() => irParaPagina(paginaAtual + 1)} disabled={paginaAtual === totalDePaginas}>Próxima</button>
-</div>
+{#if mostrarModalCriacao}
+  <Modal on:close={fecharModalCriacao}>
+      <h2 class="text-center fw-bold">Criar Nova Tarefa</h2>
+      <div class="mb-3">
+        <input type="text" class="form-control" bind:value={novaTarefa.nm} placeholder="Nome" />
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" bind:value={novaTarefa.nm_descricao} placeholder="Descrição" />
+      </div>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary small-btn w-50" on:click={criarTarefa}>Criar</button>
+      </div>  </Modal>
+{/if}

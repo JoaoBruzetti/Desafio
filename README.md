@@ -1,6 +1,6 @@
 # Desafio
 
-**Tempo gasto: 17 horas**
+**Tempo gasto: 23 horas**
 
 Recomendavel fazer deploy utilizando o codespaces do github
 

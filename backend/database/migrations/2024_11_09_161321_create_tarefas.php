@@ -5,6 +5,8 @@ use App\Enums\StatusTarefaEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
 
 return new class extends Migration
 {
@@ -26,10 +28,10 @@ return new class extends Migration
             $table->id();
             $table->text('nm');
             $table->text('nm_descricao');
-            $table->foreignId('statustarefa_id')
-                  ->constrained('statustarefas')
-                  ->default(StatusTarefaEnum::PENDENTE->value);
-            $table->timestamps();
+            $table->timestamp('dt_criacao')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->unsignedBigInteger('statustarefa_id')->default(StatusTarefaEnum::PENDENTE->value);
+            $table->foreign('statustarefa_id')->references('id')->on('statustarefas');
+
         });
 
     }

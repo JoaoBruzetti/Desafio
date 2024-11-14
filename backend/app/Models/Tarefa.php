@@ -11,8 +11,11 @@ class Tarefa extends Model
 
     protected $table = 'tarefas';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nm',
         'nm_descricao',
+        'dt_criacao',
     ];
 }

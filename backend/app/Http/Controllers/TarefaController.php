@@ -3,59 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Tarefa;
-use App\Enums\StatusTarefaEnum;
-use Illuminate\Validation\Rule;
+use App\Services\CreateTarefaService;
+use App\Services\ShowTarefasService;
+use App\Services\UpdateTarefaService;
+use App\Services\DeleteTarefaService;
 
 
 class TarefaController extends Controller
 {
     public function create(Request $request)
     {
-        $request->validate([
-            'nm' => 'required|string|max:255',
-            'nm_descricao' => 'required|string|max:255',
-        ]);
-
-        $tarefa = Tarefa::create([
-            'nm' => $request->nm,
-            'nm_descricao' => $request->nm_descricao,
-        ]);
-
-        return response()->json($tarefa, 201);
+        $createTarefaService = new CreateTarefaService();
+        $createTarefaService->createTarefa($request);
+        return response()->json(true);
     }
 
-    public function show()
+    public function show(Request $request)
     {
-       // Busca todos os registros da tabela tarefas
-       $tarefas = Tarefa::all();
-
-       // Retorna as tarefas como JSON
-       return response()->json($tarefas);
+        $createTarefasService = new ShowTarefasService();
+        $tarefas = $createTarefasService->showTarefas($request);
+        return response()->json($tarefas);
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nm' => 'string|max:255',
-            'nm_descricao' => 'string|max:255',
-            'statustarefa_id' => [
-                'integer',
-                Rule::in(array_column(StatusTarefaEnum::cases(), 'value'))
-            ],
-        ]);
-
-        $tarefa = Tarefa::findOrFail($id);
-        $tarefa->update($request->only(['nm', 'nm_descricao', 'statustarefa_id']));
-
-        return response()->json($tarefa);
+        $updateTarefaService = new UpdateTarefaService();
+        $update = $updateTarefaService->updateTarefa($id,$request);
+        return response()->json($update);
     }
 
     public function delete($id)
     {
-        $tarefa = Tarefa::findOrFail($id);
-        $tarefa->delete();
-
-        return response()->json(null, 204);
+        $deleteTarefaService = new DeleteTarefaService();
+        $delete = $deleteTarefaService->deleteTarefa($id);
+        return response()->json($delete);
     }
 }

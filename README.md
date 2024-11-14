@@ -44,3 +44,5 @@ Recomendavel fazer deploy utilizando o codespaces do github
 10. Rodar frontend
 
     **`npm run dev`**
+
+11. Abrir url gerada no navegador

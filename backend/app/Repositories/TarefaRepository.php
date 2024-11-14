@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Tarefa;
+use Illuminate\Support\Facades\DB;
 
 class TarefaRepository
 {
@@ -47,7 +48,15 @@ class TarefaRepository
         }
 
         return Tarefa::join('statustarefas', 'tarefas.statustarefa_id', '=', 'statustarefas.id')
-            ->select('tarefas.*', 'statustarefas.nm_cor')
+            ->select(
+                'tarefas.id',
+                'tarefas.nm',
+                'tarefas.nm_descricao',
+                'tarefas.statustarefa_id',
+                DB::raw("CONVERT_TZ(dt_criacao, '+00:00', '-03:00') as dt"),
+                'statustarefas.nm_cor',
+                'statustarefas.nm as nm_status'
+                )
             ->orderBy($orderBy, $direction)
             ->paginate(5);
     }

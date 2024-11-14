@@ -26,4 +26,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/tarefas', [TarefaController::class, 'create']);
     Route::post('/tarefas/{id}', [TarefaController::class, 'update']);
     Route::delete('/tarefas/{id}', [TarefaController::class, 'delete']);
+    Route::get('/options', [TarefaController::class, 'options']);
 });

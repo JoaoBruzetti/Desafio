@@ -7,6 +7,9 @@ use App\Services\CreateTarefaService;
 use App\Services\ShowTarefasService;
 use App\Services\UpdateTarefaService;
 use App\Services\DeleteTarefaService;
+use App\Enums\StatusTarefaEnum;
+use App\Enums\OrdenacaoEnum;
+
 
 
 class TarefaController extends Controller
@@ -37,5 +40,13 @@ class TarefaController extends Controller
         $deleteTarefaService = new DeleteTarefaService();
         $delete = $deleteTarefaService->deleteTarefa($id);
         return response()->json($delete);
+    }
+
+    public function options()
+    {
+        return response()->json([
+            'statusOptions' => StatusTarefaEnum::toArray(),
+            'orderOptions' => OrdenacaoEnum::toArray()
+        ]);
     }
 }

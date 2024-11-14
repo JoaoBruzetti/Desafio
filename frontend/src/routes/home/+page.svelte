@@ -25,6 +25,10 @@
         last_page: number;
     }
 
+    interface Option {
+        [key: string]: string;
+    }
+
     let tarefas: Tarefa[] = [];
     let tarefaAtual: Tarefa = {
         id: '',
@@ -45,6 +49,9 @@
     let ordenarPor = 'dt_criacao';
     let ordem = 'asc';
 
+    let statusOptions: Option = {};
+    let orderOptions: Option = {};
+
     async function buscarTarefas(pagina: number = 1) {
         const response = await fetch(
             `${apiUrl}api/tarefas?page=${pagina}&orderBy=${ordenarPor}&direction=${ordem}`, {
@@ -57,6 +64,16 @@
         tarefas = data.data;
         paginaAtual = data.current_page;
         totalDePaginas = data.last_page;
+    }
+
+    async function buscarOpcoes() {
+        const response = await fetch(`${apiUrl}api/options`, {
+            headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const data = await response.json();
+        statusOptions = data.statusOptions;
+        orderOptions = data.orderOptions;
+        console.log(statusOptions,orderOptions)
     }
 
     function abrirModalEdicao(tarefa: Tarefa) {
@@ -134,7 +151,10 @@
         buscarTarefas(paginaAtual);
     }
 
-    onMount(() => buscarTarefas(paginaAtual));
+    onMount(() => {
+        buscarTarefas(paginaAtual);
+        buscarOpcoes();
+    })
 </script>
 <style>
     .status-badge {
@@ -161,10 +181,10 @@
         <div class="d-flex align-items-center">
           <label for="ordenarPor" class="form-label me-2">Ordenar por:</label>
           <select id="ordenarPor" class="form-select" bind:value={ordenarPor} on:change={() => atualizarOrdenacao(ordenarPor)}>
-            <option value="nm">Nome</option>
-            <option value="dt_criacao">Data</option>
-            <option value="statustarefa_id">Status</option>
-          </select>
+            {#each Object.entries(orderOptions) as [key, value]}
+                <option value={key}>{value}</option>
+            {/each}
+            </select>
           <button class="btn btn-secondary ms-2" on:click={alternarOrdem}>
             {ordem === 'asc' ? 'Crescente' : 'Decrescente'}
           </button>
@@ -233,10 +253,10 @@
     <div class="mb-3 d-flex align-items-center">
       <label class="form-label me-2">Status:</label>
       <select class="form-select w-75" bind:value={tarefaAtual.statustarefa_id}>
-        <option value="1">Pendente</option>
-        <option value="2">Em andamento</option>
-        <option value="3">Concluída</option>
-      </select>
+        {#each Object.entries(statusOptions) as [value, label]}
+            <option value={value}>{label}</option>
+        {/each}
+    </select>
     </div>
 
     <!-- Centralizando os botões -->
